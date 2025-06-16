@@ -16,12 +16,20 @@
 <ul>
   <li>Radio buttons in the layer list are replaced with checkboxes.</li>
   <ul>
-    <li> you can find this here and this is already written and only need you to change max select from 1 to 2. /home/web/project/django_project/frontend/src/components/Map/SidePanelTree/ContextLayer/index.jsx
+    <li> ⚠️ You can find this here, and this is already written and only needs you to change <strong>maxSelect</strong> from 1 to 2. /home/web/project/django_project/frontend/src/components/Map/SidePanelTree/ContextLayer/index.jsx </li>
   </ul>
   <li>Users can select up to two layers.</li>
+   <ul>
+    <li> ⚠️ This is why it needs <strong>maxSelect</strong> to be changed to 2. Surprisingly, you don't need to write other logics...</li>
+  </ul>
 </ul>
 
 <h3>🖍️ Visualization Behavior</h3>
+
+<ul> 
+  <li> ⚠️ <strong>Since only one layer needed to be rendered before the entire JSX needs to be rewritten to support multiple layers </strong></li>
+  <li> ⚠️ <strong>mapLibre is here for use: </strong>/home/web/project/django_project/frontend/src/pages/Dashboard/MapLibre/Layers/ContextLayers/index.js</li>
+</ul>
 
 <h4>First Selected Layer</h4>
 <ul>
