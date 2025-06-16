@@ -17,7 +17,7 @@
    CompareLayer
    ========================================================================== */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Plugin, PluginChild } from "../../MapLibre/Plugin";
 import { Actions } from '../../../../store/dashboard'
@@ -25,6 +25,7 @@ import {
   CompareCheckedIcon,
   CompareUncheckedIcon
 } from "../../../../components/Icons";
+import { Select } from '../../../../components/Input';
 
 import './style.scss';
 
@@ -36,7 +37,12 @@ export default function CompareLayer({ disabled = false }) {
   const { compareMode } = useSelector(state => state.mapMode)
   const { name: outlineIndicatorName } = useSelector(state => state.selectedIndicatorLayer)
   const { name: innerIndicatorName } = useSelector(state => state.selectedIndicatorSecondLayer)
+  const [ showDropDown, setShowDropDown ] = useState(false);
 
+  const comparisonModes = [
+    { value: 'outline', label: 'Outline & Fill'},
+    { value: 'swipe', label: 'Swipe'}
+  ]
   /**
    * FIRST INITIATE
    * */
@@ -54,7 +60,11 @@ export default function CompareLayer({ disabled = false }) {
           disabled={disabled}
           onClick={() => {
             if (!disabled) {
-              dispatch(Actions.MapMode.changeCompareMode())
+              if (!compareMode){
+                setShowDropDown(true)
+              } else {
+                dispatch(Actions.MapMode.changeCompareMode())
+              }          
             }
           }}
         >
@@ -62,6 +72,19 @@ export default function CompareLayer({ disabled = false }) {
             compareMode ? <CompareCheckedIcon/> : <CompareUncheckedIcon/>
           }
         </PluginChild>
+        {
+          showDropDown && !compareMode && (
+            <div className='CompareModeDropDown'>
+              <Select 
+                options={comparisonModes}
+                onChange={(option) => {
+                  dispatch(Actions.MapMode.changeCompareMode())
+                  setShowDropDown(false)
+                }}
+              />
+            </div>
+          )
+        }
       </div>
     </Plugin>
   )
