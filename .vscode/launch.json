@@ -1,11 +1,12 @@
 {
     "version": "0.2.0",
     "configurations": [
+        
         {
             "name": "Django: Run server",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/django_project/manage.py",
+            "program": "/home/web/django_project/manage.py",
             "args": [
                 "runserver",
                 "0.0.0.0:8080"

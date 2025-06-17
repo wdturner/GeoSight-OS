@@ -41,6 +41,7 @@ import {
   HomeButton,
   LabelToggler,
   SearchGeometryInput,
+  SelectCompareMode,
   TiltControl,
   ToggleSidePanel,
 } from "../Toolbars";
@@ -318,6 +319,8 @@ export default function MapLibre({
           <GlobalDateSelector />
         </div>
 
+        
+
         <div className="Toolbar-Middle">
           <div className="Separator" />
           <HomeButton map={map} />
@@ -353,7 +356,13 @@ export default function MapLibre({
               </div>
             </Plugin>
           ) : null}
-          <PopupToolbars map={map} ref={drawingRef} />
+           <PopupToolbars map={map} ref={drawingRef} />
+           <SelectCompareMode
+              onSelect={(selectedOption) => {
+                dispatch(Actions.MapMode.changeCompareMode(selectedOption.value)); 
+              }}
+            />
+
           <div className="Separator" />
         </div>
 

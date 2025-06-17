@@ -25,67 +25,45 @@ import {
   CompareCheckedIcon,
   CompareUncheckedIcon
 } from "../../../../components/Icons";
-import { Select } from '../../../../components/Input';
 
 import './style.scss';
 
 /**
  * CompareLayer component.
  */
-export default function CompareLayer({ disabled = false }) {
-  const dispatch = useDispatch()
-  const { compareMode } = useSelector(state => state.mapMode)
-  const { name: outlineIndicatorName } = useSelector(state => state.selectedIndicatorLayer)
-  const { name: innerIndicatorName } = useSelector(state => state.selectedIndicatorSecondLayer)
-  const [ showDropDown, setShowDropDown ] = useState(false);
 
-  const comparisonModes = [
-    { value: 'outline', label: 'Outline & Fill'},
-    { value: 'swipe', label: 'Swipe'}
-  ]
+  export default function CompareLayer({ disabled = false }) {
+    const dispatch = useDispatch();
+    const compareModeOn = useSelector(state => state.mapMode.compareMode);
+    const { name: outlineIndicatorName } = useSelector(state => state.selectedIndicatorLayer);
+    const { name: innerIndicatorName } = useSelector(state => state.selectedIndicatorSecondLayer);
+    const [showDropDown, setShowDropDown] = useState(false);
+  
   /**
-   * FIRST INITIATE
-   * */
-  useEffect(() => {
-    if (disabled && compareMode) {
-      dispatch(Actions.MapMode.changeCompareMode())
-    }
-  }, [disabled]);
-
-  return (
-    <Plugin>
-      <div className='CompareLayerComponent Active'>
-        <PluginChild
-          title={(compareMode ? 'Turn off' : 'Turn on') + ' compare Layers'}
-          disabled={disabled}
-          onClick={() => {
-            if (!disabled) {
-              if (!compareMode){
-                setShowDropDown(true)
-              } else {
-                dispatch(Actions.MapMode.changeCompareMode())
-              }          
-            }
-          }}
-        >
-          {
-            compareMode ? <CompareCheckedIcon/> : <CompareUncheckedIcon/>
-          }
-        </PluginChild>
-        {
-          showDropDown && !compareMode && (
-            <div className='CompareModeDropDown'>
-              <Select 
-                options={comparisonModes}
-                onChange={(option) => {
-                  dispatch(Actions.MapMode.changeCompareMode())
-                  setShowDropDown(false)
-                }}
-              />
-            </div>
-          )
-        }
-      </div>
-    </Plugin>
-  )
-}
+  * FIRST INITIATE
+  * */
+    useEffect(() => {
+      if (disabled && compareModeOn) {
+        dispatch(Actions.MapMode.changeCompareMode());
+      }
+    }, [disabled]);
+  
+    return (
+      <Plugin>
+        <div className='CompareLayerComponent Active'>
+          <PluginChild
+            title={(compareModeOn ? 'Turn off' : 'Turn on') + ' compare Layers'}
+            disabled={disabled}
+            onClick={() => {
+              if (!disabled) {
+                dispatch(Actions.MapMode.changeCompareMode());
+              }
+            }}
+          >
+            {compareModeOn ? <CompareCheckedIcon /> : <CompareUncheckedIcon />}
+          </PluginChild>
+        </div>
+      </Plugin>
+    );
+  }
+  

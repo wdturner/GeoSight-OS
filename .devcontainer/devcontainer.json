@@ -10,6 +10,7 @@
   "runServices": [
     "dev"
   ],
+  "postCreateCommand": "apt update && apt install -y python-is-python3",
   "workspaceFolder": "/home/web/project",
   "runArgs": [
     "--env-file",
