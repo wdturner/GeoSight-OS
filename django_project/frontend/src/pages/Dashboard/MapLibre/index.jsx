@@ -97,6 +97,7 @@ export default function MapLibre({
         Variables.DASHBOARD.TOOL.EMBED,
         Variables.DASHBOARD.TOOL.DOWNLOAD,
         Variables.DASHBOARD.TOOL.SPATIAL_BOOKMARKS,
+        Variables.DASHBOARD.TOOL.ADMIN_LEVEL_SWITCHER,
       ].includes(row.name),
   );
 
@@ -309,16 +310,20 @@ export default function MapLibre({
               }}
             />
           ) : null}
-          <Plugin className={"ReferenceLayerToolbar"}>
-            <div>
-              <PluginChild
-                title={"Reference Layer selection"}
-                className={"ReferenceLayerSelectorWrapper"}
-              >
-                <ReferenceLayerSection />
-              </PluginChild>
-            </div>
-          </Plugin>
+          {tools.find(
+            (tool) => tool.name === Variables.DASHBOARD.TOOL.ADMIN_LEVEL_SWITCHER,
+          ) ? (
+            <Plugin className={"ReferenceLayerToolbar"}>
+              <div>
+                <PluginChild
+                  title={"Reference Layer selection"}
+                  className={"ReferenceLayerSelectorWrapper"}
+                >
+                  <ReferenceLayerSection />
+                </PluginChild>
+              </div>
+            </Plugin>
+          ) : null}
           <GlobalDateSelector />
         </div>
 
