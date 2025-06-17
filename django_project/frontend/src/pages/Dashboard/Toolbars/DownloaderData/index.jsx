@@ -30,6 +30,7 @@ import CustomPopover from "../../../../components/CustomPopover";
 import { ThemeButton } from "../../../../components/Elements/Button";
 import { removeElement } from "../../../../utils/Array";
 import { dictDeepCopy, jsonToXlsx } from "../../../../utils/main";
+import { Variables } from '../../../../utils/Variables';
 import {
   extractCode,
   fetchFeatureList,
@@ -69,6 +70,7 @@ export const TimeType = {
  * DownloaderData component.
  */
 export default function DownloaderData() {
+  const { tools } = useSelector(state => state.dashboard.data);
   const filteredGeometries = useSelector(state => state.filteredGeometries)
   const {
     indicators,
@@ -485,6 +487,16 @@ export default function DownloaderData() {
       }
     )()
   }
+
+    // Check if the tool is enabled
+    const isToolEnabled = tools?.find(
+      tool => tool.name === Variables.DASHBOARD.TOOL.DOWNLOAD
+    )?.enabled !== false; // Default to true if not found
+    
+    // Don't render if disabled
+    if (!isToolEnabled) {
+      return null;
+    }
 
   return (
     <Plugin className='DownloadControl'>

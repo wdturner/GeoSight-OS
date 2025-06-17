@@ -93,6 +93,10 @@ export default function MapLibre({
       [
         Variables.DASHBOARD.TOOL.VIEW_3D,
         Variables.DASHBOARD.TOOL.COMPARE_LAYERS,
+        Variables.DASHBOARD.TOOL.SEARCH_BOX,
+        Variables.DASHBOARD.TOOL.EMBED,
+        Variables.DASHBOARD.TOOL.DOWNLOAD,
+        Variables.DASHBOARD.TOOL.SPATIAL_BOOKMARKS,
       ].includes(row.name),
   );
 
@@ -353,24 +357,48 @@ export default function MapLibre({
               </div>
             </Plugin>
           ) : null}
+
           <PopupToolbars map={map} ref={drawingRef} />
           <div className="Separator" />
         </div>
 
-        {/* Embed */}
+        {/* SEARCH_BOX */}
         <div className="Toolbar-Right">
-          <SearchGeometryInput map={map} />
-          <Plugin className="EmbedControl">
-            <div className="Active">
-              <PluginChild title={"Get embed code"}>
-                <EmbedControl map={map} />
-              </PluginChild>
-            </div>
-          </Plugin>
-          <DownloaderData />
-          <Plugin className="BookmarkControl">
-            <Bookmark map={map} />
-          </Plugin>
+          {/* SearchGeometryInput*/}
+          {tools.find(
+            (tool) => tool.name === Variables.DASHBOARD.TOOL.SEARCH_BOX,
+          ) ? (
+            <SearchGeometryInput map={map} />
+          ) : null}
+
+          {/* Embed */}
+          {tools.find(
+            (tool) => tool.name === Variables.DASHBOARD.TOOL.EMBED,
+          ) ? (
+            <Plugin className="EmbedControl">
+              <div className="Active">
+                <PluginChild title={"Get embed code"}>
+                  <EmbedControl map={map} />
+                </PluginChild>
+              </div>
+            </Plugin>
+          ) : null}
+          {/* DownloaderData */}
+          {tools.find(
+            (tool) => tool.name === Variables.DASHBOARD.TOOL.DOWNLOAD,
+          ) ? (
+            <DownloaderData />
+          ) : null}
+
+          {/* Bookmark */}
+          {tools.find(
+            (tool) => tool.name === Variables.DASHBOARD.TOOL.SPATIAL_BOOKMARKS,
+          ) ? (
+            <Plugin className="BookmarkControl">
+              <Bookmark map={map} />
+            </Plugin>
+          ) : null}
+
           {rightPanelProps ? (
             <ToggleSidePanel
               className={rightPanelProps.className}

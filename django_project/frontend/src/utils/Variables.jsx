@@ -45,6 +45,11 @@ export const Variables = {
       COMPARE_LAYERS: "Compare layers",
       MEASUREMENT: "Measurement",
       ZONAL_ANALYSIS: "Zonal analysis",
+      ADMIN_LEVEL_SWITCHER: "Admin level switcher",
+      SEARCH_BOX: "Search box", 
+      EMBED: "Embed",
+      DOWNLOAD: "Download",
+      SPATIAL_BOOKMARKS: "Spatial bookmarks",
     }
   },
   FEATURE_TYPE: {

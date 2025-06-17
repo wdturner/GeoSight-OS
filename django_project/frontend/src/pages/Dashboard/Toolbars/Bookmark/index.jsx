@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import TextField from "@mui/material/TextField";
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { Variables } from '../../../../utils/Variables';
 
 import {
   EditIcon,
@@ -57,6 +58,7 @@ export default function Bookmark({ map }) {
   const isEmbed = EmbedConfig().id;
   const { id, slug } = useSelector(state => state.dashboard.data);
   const selectedBookmark = useSelector(state => state.selectedBookmark)
+  const { tools } = useSelector(state => state.dashboard.data)
 
   const [uploading, setUploading] = useState(false)
   const [open, setOpen] = useState(false)
@@ -148,6 +150,17 @@ export default function Bookmark({ map }) {
   if (!id) {
     return null
   }
+
+  // Check if the tool is enabled
+  const isToolEnabled = tools?.find(
+    tool => tool.name === Variables.DASHBOARD.SPATIAL_BOOKMARKS
+  )?.enabled !== false; // Default to true if not found
+  
+  // Don't render if disabled
+  if (!isToolEnabled) {
+    return null;
+  }
+
   return <>
     <ProjectCheckpoint
       map={map}

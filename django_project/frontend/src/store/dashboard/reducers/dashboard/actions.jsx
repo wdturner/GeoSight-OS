@@ -143,6 +143,12 @@ function receive(data, error = null) {
       [Variables.DASHBOARD.TOOL.COMPARE_LAYERS, true],
       [Variables.DASHBOARD.TOOL.MEASUREMENT, true],
       [Variables.DASHBOARD.TOOL.ZONAL_ANALYSIS, false],
+      [Variables.DASHBOARD.TOOL.ADMIN_LEVEL_SWITCHER, true],
+      [Variables.DASHBOARD.TOOL.SEARCH_BOX, true],
+      [Variables.DASHBOARD.TOOL.EMBED, true],
+      [Variables.DASHBOARD.TOOL.DOWNLOAD, true],
+      [Variables.DASHBOARD.TOOL.SPATIAL_BOOKMARKS, true],
+
     ].map((tool) => {
       toolDefaults(data.tools, tool[0], tool[1]);
     });

@@ -34,6 +34,7 @@ import Modal, {
 import { domain } from "../../../../utils/main";
 import { ProjectCheckpoint } from "../../../../components/ProjectCheckpoint";
 import { DjangoRequests } from "../../../../Requests";
+import { Variables } from '../../../../utils/Variables';
 
 import './style.scss';
 
@@ -46,6 +47,7 @@ export default function Embed({ map }) {
   const [projectCheckpointEnable, setProjectCheckpointEnable] = useState(false)
 
   const dashboardData = useSelector(state => state.dashboard.data);
+  const { tools } = useSelector(state => state.dashboard.data);
   const [open, setOpen] = useState(false)
   const [code, setCode] = useState('')
   const [data, setData] = useState({
@@ -76,6 +78,16 @@ export default function Embed({ map }) {
   if (!dashboardData.id || !urls.embedDetail) {
     return ""
   }
+
+    // Check if the tool is enabled
+    const isToolEnabled = tools?.find(
+      tool => tool.name === Variables.DASHBOARD.TOOL.EMBED
+    )?.enabled !== false; // Default to true if not found
+    
+    // Don't render if disabled
+    if (!isToolEnabled) {
+      return null;
+    }
   return (
     <Fragment>
       <ProjectCheckpoint
